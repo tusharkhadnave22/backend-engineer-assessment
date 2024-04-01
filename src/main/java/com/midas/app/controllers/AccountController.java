@@ -8,11 +8,17 @@ import com.midas.generated.model.AccountDto;
 import com.midas.generated.model.CreateAccountDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+
+import org.hibernate.validator.constraints.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -56,4 +62,22 @@ public class AccountController implements AccountsApi {
 
     return new ResponseEntity<>(accountsDto, HttpStatus.OK);
   }
+
+  /**
+   * PATCH /accounts/{accountId} :update firstname , lastname, and email
+  */
+  @PatchMapping("/accounts/{accountId}")
+    public ResponseEntity<AccountDto> updateAccountDetails(@PathVariable UUID accountId, @RequestBody Account updatedAccount) {
+      logger.info("Updating Account first name , last name and email id");
+
+  
+       
+        try {
+        Account account=accountService.updateAccountDetails(accountId, updatedAccount);
+           
+            return new ResponseEntity<>(Mapper.toAccountDto(account), HttpStatus.CREATED);
+        } catch (Exception e) {
+          return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 }

@@ -8,6 +8,8 @@ import io.temporal.client.WorkflowOptions;
 import io.temporal.workflow.Workflow;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+
+import org.hibernate.validator.constraints.UUID;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -49,5 +51,27 @@ public class AccountServiceImpl implements AccountService {
   @Override
   public List<Account> getAccounts() {
     return accountRepository.findAll();
+  }
+
+  @Override
+  public Account updateAccountDetails(UUID id, Account updatedAccount) {
+    Account existingAccount = accountRepository.findById(id+"").orElse(null);
+
+    if (existingAccount == null) {
+        throw new RuntimeException("Account not found");
+    }
+
+    if (updatedAccount.getFirstName() != null) {
+        existingAccount.setFirstName(updatedAccount.getFirstName());
+    }
+    if (updatedAccount.getLastName() != null) {
+        existingAccount.setLastName(updatedAccount.getLastName());
+    }
+    if (updatedAccount.getEmail() != null) {
+        existingAccount.setEmail(updatedAccount.getEmail());
+    }
+
+    accountRepository.save(existingAccount);
+    return accountRepository.findById(id+"").get();
   }
 }

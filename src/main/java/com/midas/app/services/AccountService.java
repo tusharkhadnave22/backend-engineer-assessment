@@ -3,6 +3,8 @@ package com.midas.app.services;
 import com.midas.app.models.Account;
 import java.util.List;
 
+import org.hibernate.validator.constraints.UUID;
+
 public interface AccountService {
   /**
    * createAccount creates a new account in the system or provider.
@@ -18,4 +20,6 @@ public interface AccountService {
    * @return List<Account>
    */
   List<Account> getAccounts();
+
+  Account updateAccountDetails(UUID id, Account updatedAccount);
 }
