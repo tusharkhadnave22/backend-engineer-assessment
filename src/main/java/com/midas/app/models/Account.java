@@ -36,4 +36,11 @@ public class Account {
   @Column(name = "updated_at")
   @UpdateTimestamp
   private OffsetDateTime updatedAt;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "provider_type")
+  private ProviderType providerType;
+
+  @Column(name = "provider_id")
+  private String providerId;
 }
