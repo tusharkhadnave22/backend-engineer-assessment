@@ -4,7 +4,9 @@ import com.midas.app.models.Account;
 import com.midas.app.providers.external.stripe.StripePaymentProvider;
 import com.midas.app.providers.payment.CreateAccount;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AccountActivityImpl implements AccountActivity {
   @Autowired private StripePaymentProvider stripePaymentProvider;
 

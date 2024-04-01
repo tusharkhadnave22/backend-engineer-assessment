@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +39,6 @@ public class StripePaymentProvider implements PaymentProvider {
    * @return Account
    */
   @Override
-  @Bean
   public Account createAccount(CreateAccount details) {
     Account account = null;
     Stripe.apiKey = configuration + "";

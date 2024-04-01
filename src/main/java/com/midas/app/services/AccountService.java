@@ -2,8 +2,7 @@ package com.midas.app.services;
 
 import com.midas.app.models.Account;
 import java.util.List;
-
-import org.hibernate.validator.constraints.UUID;
+import java.util.UUID;
 
 public interface AccountService {
   /**
